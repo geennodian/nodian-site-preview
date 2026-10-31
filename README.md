@@ -21,6 +21,7 @@ nexpotの商品ページ。ビルド不要の静的ファイルで動く。外�
 - `nexpot/video/` — 実機の画面録画から切り出した映像（`img/poster-*.jpg` はその静止画）
 - `nexpot/img/bikes.webp` — アベントゥーライフの自転車の写真（掲載の了承あり）
 - `nexpot/img/{hero,ride,town,lake,coast,dusk}-*.webp` — AIで生成した国内の風景のイメージ。実際の場所ではない。ページのフッターにもその旨を記載している
+- `references/` — 制作時に参照した資料。サイトの一部ではないため、本番へ反映するときは含めない
 
 ## 公開状態（GitHub Pages・無料）
 
