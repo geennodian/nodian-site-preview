@@ -11,6 +11,17 @@ STUDIOで作成していたサイト（gold621218.studio.site）を、維持費�
 
 外部依存はGoogle Fonts（無料）とFormSubmit（無料のフォーム送信サービス）のみ。ビルド不要でそのまま公開できます。
 
+## nexpot サービスページ（/nexpot/）
+
+スクロールで自転車のライドを体験できる、nexpotの商品ページ。ビルド不要の静的ファイルで動く。
+
+- `nexpot/index.html` — 文言とスマホ画面のマークアップ
+- `nexpot/nexpot.css` — スタイル一式
+- `nexpot/js/world.js` — 3Dの世界（Three.js）。地形・建物・光はすべてコードで作っている
+- `nexpot/js/main.js` — スクロール連動、スマホ画面のデモ、自動走行
+- `nexpot/vendor/` — Three.js r170（MIT）
+- `nexpot/img/` — ロゴと、3Dの世界から書き出した静止画
+
 ## 公開状態（GitHub Pages・無料）
 
 - リポジトリ: https://github.com/geennodian/nodian-site （geennodianアカウント）

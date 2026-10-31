@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>nexpot | 走るほどに、土地が語りだす。AI観光サイクルガイド</title>
+<meta name="description" content="nexpot（ネクスポット）は、コース案内・スポットの音声解説・AIガイド・クイズをひとつにした、自転車の観光ガイドアプリです。スクロールで、冒険・発見・伝統文化・自然をめぐるライドを体験できます。">
+<meta property="og:title" content="nexpot | 走るほどに、土地が語りだす。">
+<meta property="og:description" content="冒険、発見、伝統文化、自然。自転車で地域をめぐるAI観光サイクルガイド。">
+<meta property="og:type" content="website">
+<meta property="og:image" content="https://nodi-an.com/nexpot/img/og.jpg">
+<meta name="theme-color" content="#0F3A44">
+<link rel="icon" href="img/logo-mark.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@500;600;700&family=Shippori+Mincho+B1:wght@600;800&family=Yuji+Boku&family=Zen+Kaku+Gothic+New:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="nexpot.css">
+<script>document.documentElement.classList.add('js');</script>
+</head>
+<body>
+
+<header class="top" id="top">
+  <a class="top__brand" href="./" aria-label="nexpot トップへ"><img src="img/logo-mark-white.svg" alt="nexpot" width="118" height="43"></a>
+  <nav class="top__nav" aria-label="ページ内">
+    <a href="#ride">体験する</a>
+    <a href="#features">できること</a>
+    <a href="#region">地域のみなさまへ</a>
+    <a class="top__cta" href="../#contact_form">相談する</a>
+  </nav>
+</header>
+
+<section class="ride" id="ride" aria-label="nexpotのライド体験">
+  <div class="stage" id="stage">
+    <canvas id="world" aria-hidden="true"></canvas>
+    <div class="grain" aria-hidden="true"></div>
+    <div class="vignette" aria-hidden="true"></div>
+    <div class="flash" id="flash" aria-hidden="true"></div>
+
+    <div class="hero" id="hero">
+      <p class="hero__en">AI CYCLING GUIDE</p>
+      <h1 class="hero__title"><span>走るほどに、</span><span>土地が語りだす。</span></h1>
+      <p class="hero__lead">峠の風、古い町並み、千年の社、湖の夕日。<br>スマホひとつで、自転車の旅が物語に変わる。</p>
+      <button class="cta" id="startBtn" type="button"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5.5v13l11-6.5z"/></svg>コースに出発する</button>
+      <p class="hero__hint"><i aria-hidden="true"></i>スクロールで、ペダルを踏む</p>
+    </div>
+
+    <article class="chap" data-a=".045" data-b=".205">
+      <p class="chap__no">01 <span>/ 04</span></p>
+      <h2 class="chap__kanji">冒険</h2>
+      <div class="chap__text">
+        <p class="chap__en">ADVENTURE</p>
+        <p class="chap__title">地図の余白へ、<br>漕ぎ出す。</p>
+        <p class="chap__body">コースを選べば、ナビがスポットを順番に案内。迷わないから、もっと遠くまで行ける。</p>
+      </div>
+    </article>
+    <article class="chap" data-a=".285" data-b=".47">
+      <p class="chap__no">02 <span>/ 04</span></p>
+      <h2 class="chap__kanji">発見</h2>
+      <div class="chap__text">
+        <p class="chap__en">DISCOVERY</p>
+        <p class="chap__title">近づくと、<br>町が語りだす。</p>
+        <p class="chap__body">スポットに入ると、解説音声がひとりでに流れる。スマホを取り出さなくても、物語が始まる。</p>
+      </div>
+    </article>
+    <article class="chap" data-a=".515" data-b=".72">
+      <p class="chap__no">03 <span>/ 04</span></p>
+      <h2 class="chap__kanji chap__kanji--long">伝統文化</h2>
+      <div class="chap__text">
+        <p class="chap__en">TRADITION</p>
+        <p class="chap__title">千年の「なぜ」を、<br>その場で聞く。</p>
+        <p class="chap__body">気になったら、声や文字でAIガイドへ。地域の資料をもとに、ガイドのように答える。</p>
+      </div>
+    </article>
+    <article class="chap" data-a=".755" data-b=".94">
+      <p class="chap__no">04 <span>/ 04</span></p>
+      <h2 class="chap__kanji">自然</h2>
+      <div class="chap__text">
+        <p class="chap__en">NATURE</p>
+        <p class="chap__title">風の匂いまで、<br>旅の記憶に。</p>
+        <p class="chap__body">クイズに答えて特典を手に入れ、走った距離も訪れた場所も、記録に残す。</p>
+      </div>
+    </article>
+
+    <ol class="route" id="routeHud" aria-hidden="true">
+      <li>冒険</li><li>発見</li><li>伝統</li><li>自然</li>
+      <span class="route__bar"><i id="routeFill"></i></span>
+    </ol>
+    <p class="meter" aria-hidden="true"><b id="mKm">0.0</b><small>km</small><b id="mEl">400</b><small>m</small><b id="mClock">06:10</b></p>
+
+    <div class="cockpit" id="cockpit">
+      <svg class="bar" viewBox="0 0 1600 360" preserveAspectRatio="xMidYMax slice" aria-hidden="true">
+        <defs>
+          <linearGradient id="gBar" x1="0" y1="0" x2="0" y2="1"><stop offset="0" style="stop-color:var(--rim)"/><stop offset=".16" stop-color="#3a4147"/><stop offset=".55" stop-color="#171b1f"/><stop offset="1" stop-color="#0b0e11"/></linearGradient>
+          <linearGradient id="gGrip" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#2c3136"/><stop offset=".3" stop-color="#12161a"/><stop offset="1" stop-color="#07090b"/></linearGradient>
+          <linearGradient id="gBell" x1="0" y1="0" x2="0" y2="1"><stop offset="0" style="stop-color:var(--rim)"/><stop offset=".45" stop-color="#c9a24a"/><stop offset="1" stop-color="#6d5420"/></linearGradient>
+        </defs>
+        <path d="M722 372 760 262h80l38 110z" fill="#101316"/>
+        <path d="M744 282h112l6 26H738z" fill="url(#gBar)"/>
+        <path d="M-60 214C230 214 520 252 800 252s570-38 860-38v50c-290 0-580 40-860 40S230 264-60 264z" fill="url(#gBar)"/>
+        <path d="M-60 200C60 200 150 204 262 214v64C150 268 60 266-60 266z" fill="url(#gGrip)"/>
+        <path d="M1660 200c-120 0-210 4-322 14v64c112-10 202-12 322-12z" fill="url(#gGrip)"/>
+        <path d="M250 278c70 34 166 54 300 50" fill="none" stroke="#1b2024" stroke-width="15" stroke-linecap="round"/>
+        <path d="M1350 278c-70 34-166 54-300 50" fill="none" stroke="#1b2024" stroke-width="15" stroke-linecap="round"/>
+        <rect x="256" y="196" width="46" height="96" rx="12" fill="#14181c"/>
+        <rect x="1298" y="196" width="46" height="96" rx="12" fill="#14181c"/>
+      </svg>
+      <button class="bell" id="bell" type="button" aria-label="ベルを鳴らす">
+        <svg viewBox="0 0 90 70" aria-hidden="true"><path d="M12 56C12 26 26 8 45 8s33 18 33 48z" fill="url(#gBell)"/><rect x="8" y="54" width="74" height="9" rx="4.5" fill="#6d5420"/></svg>
+      </button>
+      <div class="mount" aria-hidden="true"></div>
+
+      <div class="phone" id="phone">
+        <div class="screen">
+          <div class="sb"><b id="sbClock">06:10</b><span class="sb__ic"><i></i><i></i><i></i></span></div>
+          <div class="toast" id="toast" role="status"></div>
+
+          <section class="sc sc--start is-on" data-sc="start">
+            <div class="start__art" aria-hidden="true"><svg viewBox="0 0 240 150" preserveAspectRatio="xMidYMid slice"><defs><linearGradient id="gArt" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#2F6F8B"/><stop offset="1" stop-color="#F6C29A"/></linearGradient></defs><rect width="240" height="150" fill="url(#gArt)"/><circle cx="168" cy="72" r="16" fill="#FFE6B8"/><path d="M0 110 54 58l34 30 42-50 58 58 52-26v80H0z" fill="#47698A"/><path d="M0 128l46-24 44 22 56-30 94 40v14H0z" fill="#2B4B57"/><path d="M0 150c60-34 110-34 240-22v22z" fill="#17343C"/></svg><span>デモコース</span></div>
+            <div class="start__body">
+              <p class="start__tag">HISTORY × NATURE</p>
+              <p class="start__title">峠と町と湖をめぐる<br>ひとめぐりコース</p>
+              <ul class="start__meta"><li><b>18.0</b>km</li><li><b>4</b>スポット</li><li>ふつう</li></ul>
+              <button class="pbtn" id="phoneStart" type="button">このコースで出発する</button>
+            </div>
+          </section>
+
+          <section class="sc sc--nav" data-sc="nav">
+            <svg class="map" id="map" viewBox="0 0 240 420" preserveAspectRatio="xMidYMid slice" aria-hidden="true"></svg>
+            <div class="nav__top">
+              <span class="nav__ic"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21 3 3 10.5l7.5 3 3 7.5z"/></svg></span>
+              <p><b id="navName">見晴らし峠</b><small>残り <span id="navKm">1.2</span>km ・ <span id="navMin">8</span>分</small></p>
+            </div>
+            <div class="nav__bottom"><small id="navIdx">スポット 1 / 4 ・ 次のスポット</small><span class="nav__ai"><i></i>AI解説 ON</span></div>
+          </section>
+
+          <section class="sc sc--audio" data-sc="audio">
+            <div class="au__top">
+              <p class="au__near">SPOT 2</p>
+              <p class="au__name">古い町並み</p>
+              <p class="au__cap" id="auCap"></p>
+            </div>
+            <div class="au__sheet">
+              <p class="au__ttl">音声ガイド</p>
+              <div class="wave" id="wave" aria-hidden="true"></div>
+              <div class="au__bar"><i id="auFill"></i></div>
+              <div class="au__time"><span id="auNow">0:00</span><span>1:30</span></div>
+              <button class="au__play" id="auPlay" type="button" aria-label="音声を再生"><svg viewBox="0 0 24 24" aria-hidden="true"><path class="i-play" d="M8 5.5v13l11-6.5z"/><path class="i-stop" d="M7 6h4v12H7zM13 6h4v12h-4z"/></svg></button>
+              <ul class="au__rate" aria-hidden="true"><li>0.75x</li><li class="on">1.0x</li><li>1.25x</li><li>1.5x</li></ul>
+            </div>
+          </section>
+
+          <section class="sc sc--chat" data-sc="chat">
+            <header class="ch__hd"><b><i></i>AI Guide</b><small>森のお社</small></header>
+            <div class="ch__log" id="chatLog"></div>
+            <div class="ch__chips" id="chatChips"></div>
+          </section>
+
+          <section class="sc sc--quiz" data-sc="quiz">
+            <header class="qz__hd"><b>Quiz Challenge</b><small>湖のほとり</small></header>
+            <div class="qz__bar"><i></i></div>
+            <p class="qz__q">斜面に棚田がつくられてきた、いちばんの理由は？</p>
+            <div class="qz__opts" id="quizOpts">
+              <button type="button" data-ok="1"><i>A</i>山あいの土地でも、お米を育てるため</button>
+              <button type="button"><i>B</i>湖の魚を増やすため</button>
+              <button type="button"><i>C</i>馬の通り道をつくるため</button>
+            </div>
+            <div class="qz__res" id="quizRes">
+              <p><b>正解！</b>平らな土地が少ない山あいでは、斜面を段に分けて水をためることで、米づくりが続けられてきました。</p>
+              <p class="qz__code">特典コードを獲得しました<b>NXP-DEMO-2026</b></p>
+            </div>
+          </section>
+
+          <section class="sc sc--done" data-sc="done">
+            <p class="dn__en">COURSE COMPLETE</p>
+            <p class="dn__ttl">完走、<br>おめでとう！</p>
+            <ul class="dn__st"><li><b>18.0</b><small>km</small></li><li><b>4/4</b><small>スポット</small></li><li><b>12</b><small>時間の旅</small></li></ul>
+            <p class="dn__q">このコースの評価は？</p>
+            <div class="dn__stars" id="stars"><button type="button" aria-label="1">★</button><button type="button" aria-label="2">★</button><button type="button" aria-label="3">★</button><button type="button" aria-label="4">★</button><button type="button" aria-label="5">★</button></div>
+          </section>
+        </div>
+      </div>
+    </div>
+
+    <button class="auto" id="autoBtn" type="button" aria-pressed="false"><span class="auto__dot"></span><span id="autoLabel">自動で走る</span></button>
+  </div>
+</section>
+
+<main class="after">
+  <section class="finish">
+    <p class="rv">おつかれさまでした</p>
+    <h2 class="rv">次は、ほんとうの<br class="sp">風の中で。</h2>
+    <p class="finish__lead rv">nexpotは、コース案内、スポットの音声解説、AIガイド、クイズをひとつにした、自転車の観光ガイドアプリです。スマートフォンが、地域を知り尽くしたガイドになります。</p>
+  </section>
+
+  <section class="features" id="features" aria-label="nexpotでできること">
+    <article class="fc" style="--i:0">
+      <div class="fc__img"><img src="img/still-ride.jpg" alt="朝焼けの峠道をのぼる自転車の視点" loading="lazy" width="1600" height="1000"></div>
+      <div class="fc__body"><p class="fc__en">01 RIDE</p><h3><span>走る</span>迷わず、地域の奥まで。</h3><p>現在地からエリアを判定し、歴史・自然・グルメなどからコースを提案。ナビがスポットを順番に案内し、到着も自動で検知します。</p><ul><li>コース検索</li><li>ナビゲーション</li><li>周辺スポット</li><li>お気に入り</li></ul></div>
+    </article>
+    <article class="fc" style="--i:1">
+      <div class="fc__img"><img src="img/still-town.jpg" alt="提灯が連なる古い町並みの通り" loading="lazy" width="1600" height="1000"></div>
+      <div class="fc__body"><p class="fc__en">02 LISTEN</p><h3><span>聴く</span>近づくと、語りだす。</h3><p>スポットの範囲に入ると、解説音声が自動で再生。ナビの音声と重ならないよう調整し、同じ場所で何度も流れない配慮も備えています。</p><ul><li>自動音声ガイド</li><li>男性・女性の声</li><li>0.75〜1.5倍速</li></ul></div>
+    </article>
+    <article class="fc" style="--i:2">
+      <div class="fc__img"><img src="img/still-torii.jpg" alt="朱色の鳥居が連なる森の道" loading="lazy" width="1600" height="1000"></div>
+      <div class="fc__body"><p class="fc__en">03 ASK</p><h3><span>尋ねる</span>その場の「なぜ」に、答える。</h3><p>声でも文字でも、その場でAIガイドへ。地域の資料をもとに、観光ガイドのような語り口で、音声と文字で答えます。</p><ul><li>声と文字で質問</li><li>地域の資料が根拠</li><li>安全チェック</li></ul></div>
+    </article>
+    <article class="fc" style="--i:3">
+      <div class="fc__img"><img src="img/still-terrace.jpg" alt="夕暮れの棚田と湖を見おろす道" loading="lazy" width="1600" height="1000"></div>
+      <div class="fc__body"><p class="fc__en">04 PLAY</p><h3><span>遊ぶ</span>学びが、楽しみに変わる。</h3><p>訪れたスポットにちなんだ3択クイズに挑戦。解説つきで理解が深まり、正解すると特典コードがもらえます。</p><ul><li>スポットクイズ</li><li>解説つき</li><li>特典コード</li></ul></div>
+    </article>
+    <article class="fc" style="--i:4">
+      <div class="fc__img"><img src="img/still-lake.jpg" alt="湖の鳥居に沈む夕日" loading="lazy" width="1600" height="1000"></div>
+      <div class="fc__body"><p class="fc__en">05 RECORD</p><h3><span>残す</span>旅のあとにも、残るものを。</h3><p>走った距離、時間、訪れたスポットを記録。コースを5段階で評価でき、累計の距離やクイズの正答率も見返せます。</p><ul><li>完走記録</li><li>コース評価</li><li>旅の統計</li></ul></div>
+    </article>
+  </section>
+
+  <section class="mq" aria-hidden="true"><div class="mq__track" id="mq"><span>冒険</span><em>ADVENTURE</em><span>発見</span><em>DISCOVERY</em><span>伝統文化</span><em>TRADITION</em><span>自然</span><em>NATURE</em><span>冒険</span><em>ADVENTURE</em><span>発見</span><em>DISCOVERY</em><span>伝統文化</span><em>TRADITION</em><span>自然</span><em>NATURE</em></div></section>
+
+  <section class="basics">
+    <ul>
+      <li class="rv"><b>iPhone・Android</b><span>対応予定。アプリは現在、公開に向けて準備を進めています。</span></li>
+      <li class="rv"><b>日本語・English</b><span>コース情報も音声ガイドも、選んだ言語で楽しめます。</span></li>
+      <li class="rv"><b>利用者は原則無料</b><span>旅する人の負担を増やさず、地域の魅力に触れてもらえます。</span></li>
+      <li class="rv"><b>電波が弱くても</b><span>通信に失敗しても、ワンタップで再試行。旅が止まりません。</span></li>
+    </ul>
+  </section>
+
+  <section class="region" id="region">
+    <div class="region__in">
+      <p class="eyebrow rv">FOR REGIONS</p>
+      <h2 class="rv">地域の物語を、<br>走れる体験に。</h2>
+      <p class="region__lead rv">自治体・観光事業者のみなさまへ。地域にある資料と風景から、その土地ならではのコースをつくります。</p>
+      <div class="region__grid">
+        <article class="rv"><h3>資料が、そのままガイドに</h3><p>地域が用意した資料をもとに、AIガイドが回答。クイズも資料からAIが作成するため、問題づくりの負担はありません。</p></article>
+        <article class="rv"><h3>観光客の動きが、見える</h3><p>訪れたスポット、完走したコース、AIへの質問などを、個人を特定しない統計データとして施策の検討に活用できます。</p></article>
+        <article class="rv"><h3>訪日のお客さまにも</h3><p>日本語と英語に対応。中国語・スペイン語・韓国語も順次拡大を予定しています。</p></article>
+        <article class="rv"><h3>レンタサイクルとつなぐ<em>導入準備中</em></h3><p>スマートロックと連携し、QRコードで解錠。窓口を介さない貸し出し・返却を目指します。既存の車両にも取り付けできます。</p></article>
+      </div>
+      <a class="cta cta--light rv" href="../#contact_form">導入について相談する<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h13M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+    </div>
+  </section>
+</main>
+
+<footer class="foot">
+  <a href="./"><img src="img/logo-mark-white.svg" alt="nexpot" width="96" height="35" loading="lazy"></a>
+  <p>nexpotは、<a href="../">株式会社NODIAN</a>のサービスです。<br>ページ内の映像と画面はイメージです。「伝統文化」の章のAIの回答はデモです。</p>
+  <p class="foot__c">© 2026 NODIAN, K.K.</p>
+</footer>
+
+<script type="module" src="js/main.js"></script>
+</body>
+</html>

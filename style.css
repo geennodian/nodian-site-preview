@@ -257,6 +257,7 @@ ul { list-style: none; }
   box-shadow: 0 30px 70px rgba(0, 0, 0, 0.5);
 }
 .works-panel__body { flex: 1 1 44%; max-width: 560px; }
+.works-panel__link { margin-top: 22px; }
 .works-panel__num {
   font-weight: 800; letter-spacing: 0.3em; font-size: 0.85rem;
   background: var(--grad); -webkit-background-clip: text; background-clip: text; color: transparent;
