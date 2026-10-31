@@ -13,14 +13,14 @@ STUDIOで作成していたサイト（gold621218.studio.site）を、維持費�
 
 ## nexpot サービスページ（/nexpot/）
 
-スクロールで自転車のライドを体験できる、nexpotの商品ページ。ビルド不要の静的ファイルで動く。
+nexpotの商品ページ。ビルド不要の静的ファイルで動く。外部ライブラリは使っていない。
 
-- `nexpot/index.html` — 文言とスマホ画面のマークアップ
+- `nexpot/index.html` — 文言と構成
 - `nexpot/nexpot.css` — スタイル一式
-- `nexpot/js/world.js` — 3Dの世界（Three.js）。地形・建物・光はすべてコードで作っている
-- `nexpot/js/main.js` — スクロール連動、スマホ画面のデモ、自動走行
-- `nexpot/vendor/` — Three.js r170（MIT）
-- `nexpot/img/` — ロゴと、3Dの世界から書き出した静止画
+- `nexpot/js/main.js` — ヘッダーの切り替え、セクションの表示、映像の再生
+- `nexpot/video/` — 実機の画面録画から切り出した映像（`img/poster-*.jpg` はその静止画）
+- `nexpot/img/bikes.webp` — アベントゥーライフの自転車の写真（掲載の了承あり）
+- `nexpot/img/{hero,ride,town,lake,coast,dusk}-*.webp` — AIで生成した国内の風景のイメージ。実際の場所ではない。ページのフッターにもその旨を記載している
 
 ## 公開状態（GitHub Pages・無料）
 
